@@ -1,5 +1,6 @@
 package com.dairy.backend.order.model;
 
+import com.dairy.backend.delivery.model.DeliveryAgent;
 import com.dairy.backend.user.model.User;
 import jakarta.persistence.*;
 
@@ -18,6 +19,10 @@ public class Order {
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "delivery_agent_id")
+    private DeliveryAgent deliveryAgent;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
@@ -51,6 +56,10 @@ public class Order {
         return createdAt;
     }
 
+    public DeliveryAgent getDeliveryAgent() {
+        return deliveryAgent;
+    }
+
     // setters
 
     public void setUser(User user) {
@@ -64,4 +73,9 @@ public class Order {
     public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
     }
+
+    public void setDeliveryAgent(DeliveryAgent deliveryAgent) {
+        this.deliveryAgent = deliveryAgent;
+    }
+
 }
