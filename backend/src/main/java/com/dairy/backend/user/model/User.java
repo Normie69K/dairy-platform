@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.UUID;
 
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -15,16 +16,15 @@ public class User {
     @Column(nullable = false, unique = true, length = 15)
     private String phone;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private String role;
+    private Role role;
 
     @Column(nullable = false)
     private boolean verified = false;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
-
-    // getters only for now
 
     public UUID getId() {
         return id;
@@ -34,7 +34,7 @@ public class User {
         return phone;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
@@ -46,13 +46,11 @@ public class User {
         return createdAt;
     }
 
-    // setters only where necessary
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
