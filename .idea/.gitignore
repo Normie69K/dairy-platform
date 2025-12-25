@@ -1,0 +1,58 @@
+############################
+# GLOBAL
+############################
+.env
+.env.*
+.DS_Store
+*.log
+logs/
+
+############################
+# INTELLIJ / IDE
+############################
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+############################
+# GRADLE / SPRING BOOT
+############################
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+############################
+# SPRING TOOL SUITE / ECLIPSE
+############################
+.project
+.classpath
+.settings/
+.factorypath
+.springBeans
+.sts4-cache/
+bin/
+
+############################
+# NODE / REACT (VITE)
+############################
+node_modules/
+dist/
+dist-ssr/
+*.local
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+############################
+# VS CODE
+############################
+.vscode/
+!.vscode/extensions.json
+
+############################
+# MISC
+############################
+coverage/
+tmp/
