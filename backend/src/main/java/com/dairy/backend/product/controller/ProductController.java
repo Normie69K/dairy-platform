@@ -2,7 +2,6 @@ package com.dairy.backend.product.controller;
 
 import com.dairy.backend.product.model.Product;
 import com.dairy.backend.product.service.ProductService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,31 +18,17 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> create(@RequestBody Product product) {
-        return ResponseEntity.ok(service.create(product));
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Product> update(
-            @PathVariable UUID id,
-            @RequestBody Product product
-    ) {
-        return ResponseEntity.ok(service.update(id, product));
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Product> getById(@PathVariable UUID id) {
-        return ResponseEntity.ok(service.getById(id));
+    public Product create(@RequestBody Product product) {
+        return service.createProduct(product);
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getActiveProducts() {
-        return ResponseEntity.ok(service.getActiveProducts());
+    public List<Product> listActive() {
+        return service.getAllActiveProducts();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deactivate(@PathVariable UUID id) {
-        service.deactivate(id);
-        return ResponseEntity.noContent().build();
+    @PatchMapping("/{id}/disable")
+    public void disable(@PathVariable UUID id) {
+        service.disableProduct(id);
     }
 }

@@ -4,7 +4,6 @@ import com.dairy.backend.product.model.Product;
 import com.dairy.backend.product.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,41 +17,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product create(Product product) {
-        if (product.getPrice() == null || product.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Price must be positive");
-        }
+    public Product createProduct(Product product) {
         return repository.save(product);
     }
 
     @Override
-    public Product update(UUID id, Product updated) {
-        Product existing = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
-
-        existing.setName(updated.getName());
-        existing.setPrice(updated.getPrice());
-        existing.setUnit(updated.getUnit());
-        existing.setActive(updated.isActive());
-
-        return repository.save(existing);
-    }
-
-    @Override
-    public Product getById(UUID id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
-    }
-
-    @Override
-    public List<Product> getActiveProducts() {
+    public List<Product> getAllActiveProducts() {
         return repository.findByActiveTrue();
     }
 
     @Override
-    public void deactivate(UUID id) {
-        Product product = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+    public void disableProduct(UUID productId) {
+        Product product = repository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
 
         product.setActive(false);
         repository.save(product);

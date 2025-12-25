@@ -7,13 +7,10 @@ import java.util.UUID;
 
 public interface ProductService {
 
-    Product create(Product product);
+    Product createProduct(Product product);
 
-    Product update(UUID id, Product updated);
+    List<Product> getAllActiveProducts();
 
-    Product getById(UUID id);
+    void disableProduct(UUID productId);
 
-    List<Product> getActiveProducts();
-
-    void deactivate(UUID id);
 }
