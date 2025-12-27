@@ -13,6 +13,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -76,5 +77,16 @@ public class OrderServiceImpl implements OrderService {
 
         order.setTotalAmount(total);
         return orderRepository.save(order);
+    }
+
+    @Override
+    public List<Order> getOrdersForUser(UUID userId) {
+        return orderRepository.findByUserIdOrderByCreatedAtDesc(userId);
+    }
+
+    @Override
+    public Order getOrderForUser(UUID orderId, UUID userId) {
+        return orderRepository.findByIdAndUserId(orderId, userId)
+                .orElseThrow(() -> new IllegalStateException("Order not found"));
     }
 }
